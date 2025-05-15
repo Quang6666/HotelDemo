@@ -13,7 +13,6 @@ export default function Home() {
       <header className="header">
         <div className="logo">FirstHotel</div>
         <nav className="nav">
-          <a href="#home">Trang chủ</a>
           <a href="/rooms">Phòng</a>
           <a href="#services">Dịch vụ</a>
           <a href="#about">Giới thiệu</a>
@@ -25,7 +24,7 @@ export default function Home() {
         <div className="hero-content">
           <h1>Khách sạn FirstHotel</h1>
           <p>Đặt phòng khách sạn cao cấp, tiện nghi, giá tốt!</p>
-          <button className="btn-accent" onClick={scrollToBooking}>
+          <button className="btn-accent" onClick={() => window.location.href = '/rooms'} type="button">
             Đặt phòng ngay <i className="fas fa-arrow-right"></i>
           </button>
         </div>
@@ -124,7 +123,7 @@ export default function Home() {
           <div className="copyright">© 2025 FirstHotel. All rights reserved.</div>
         </div>
       </footer>
-      <a href="#booking" className="floating-btn"><i className="fas fa-phone-alt"></i> Đặt phòng</a>
+      <a href="/rooms" className="floating-btn"><i className="fas fa-phone-alt"></i> Đặt phòng</a>
     </>
   );
 }

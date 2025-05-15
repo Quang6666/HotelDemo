@@ -198,7 +198,7 @@ const rooms = [
   }
 ];
 
-function RoomCard({ room }: { room: typeof rooms[0] }) {
+function RoomCard({ room }: { room: typeof rooms[0] & { status?: string } }) {
   const [imgIdx, setImgIdx] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [btnAnim, setBtnAnim] = useState<{left: boolean; right: boolean}>({left: false, right: false});
@@ -220,10 +220,14 @@ function RoomCard({ room }: { room: typeof rooms[0] }) {
     setTimeout(() => setBtnAnim(a => ({...a, left: false})), 180);
     setImgIdx((imgIdx - 1 + room.images.length) % room.images.length);
   };
+  // Trạng thái phòng: mặc định random cho demo
+  const status = room.status || (room.name.length % 2 === 0 ? "Còn trống" : "Đang thương lượng");
+  const statusColor = status === "Còn trống" ? "#27ae60" : "#f7b731";
   return (
     <div
       style={{
         width: 320,
+        minHeight: 480,
         margin: "24px 16px",
         background: "#fff",
         borderRadius: 16,
@@ -231,6 +235,8 @@ function RoomCard({ room }: { room: typeof rooms[0] }) {
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "stretch",
         transform: hovered ? "scale(1.045)" : "scale(1)",
         transition: "transform 0.25s cubic-bezier(.4,2,.3,1), box-shadow 0.25s cubic-bezier(.4,2,.3,1)",
         cursor: "pointer"
@@ -238,8 +244,25 @@ function RoomCard({ room }: { room: typeof rooms[0] }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div style={{position: "relative", height: 180, background: "#eee"}}>
-        <Image src={room.images[imgIdx]} alt={room.name} width={320} height={180} style={{width: "100%", height: 180, objectFit: "cover"}} />
+      <div style={{position: "relative", height: 180, background: "#eee", flexShrink: 0}}>
+        {/* Trạng thái góc trên trái, chỉ hiện màu, không chữ "trạng thái" */}
+        <div style={{
+          position: "absolute",
+          top: 10,
+          left: 10,
+          zIndex: 2,
+          background: statusColor,
+          width: 18,
+          height: 18,
+          borderRadius: 6,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
+          border: "2px solid #fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }} title={status}>
+        </div>
+        <Image src={room.images[imgIdx]} alt={room.name} width={320} height={180} style={{width: "100%", height: 180, objectFit: "cover", borderTopLeftRadius: 16, borderTopRightRadius: 16}} />
         <button
           onClick={prevImg}
           style={{
@@ -286,13 +309,35 @@ function RoomCard({ room }: { room: typeof rooms[0] }) {
           ))}
         </div>
       </div>
-      <div style={{padding: 16, background: "#fff", display: "flex", flexDirection: "column", gap: 6}}>
+      <div style={{padding: 16, background: "#fff", display: "flex", flexDirection: "column", gap: 6, flex: 1, minHeight: 220, justifyContent: "flex-start"}}>
         <h2 style={{margin: "0 0 4px 0", color: "#232329", fontSize: 20}}>{room.name}</h2>
         <div style={{fontSize: 18, color: "#ee4c40", fontWeight: 700, marginBottom: 4}}>{room.price}</div>
         <div style={{marginBottom: 2, color: "#232329", fontSize: 14}}><b>Tiện ích:</b> {room.amenities.join(", ")}</div>
         <div style={{marginBottom: 2, color: "#232329", fontSize: 14}}><b>Số người phù hợp:</b> {room.people}</div>
         <div style={{marginBottom: 2, color: "#232329", fontSize: 14}}><b>Diện tích:</b> {room.size}</div>
         <div style={{marginBottom: 2, color: "#232329", fontSize: 14}}><b>Nhận xét:</b> <i>&ldquo;{room.reviews}&rdquo;</i></div>
+        {/* Nút xem chi tiết căn giữa dưới cùng */}
+        <div style={{display: "flex", justifyContent: "center", marginTop: "auto", marginBottom: 0, flexGrow: 1, alignItems: "flex-end"}}>
+          <a href="/rooms" style={{
+            background: "#ee4c40",
+            color: "#fff",
+            border: "none",
+            borderRadius: 8,
+            padding: "10px 28px",
+            fontWeight: 700,
+            fontSize: 16,
+            textDecoration: "none",
+            boxShadow: "0 2px 8px rgba(238,76,64,0.10)",
+            transition: "background 0.18s, box-shadow 0.18s, transform 0.18s",
+            cursor: "pointer",
+            minWidth: 120,
+            textAlign: "center",
+            display: "inline-block"
+          }}
+          onMouseEnter={e => e.currentTarget.style.background = '#d63a2a'}
+          onMouseLeave={e => e.currentTarget.style.background = '#ee4c40'}
+          >Xem chi tiết</a>
+        </div>
       </div>
     </div>
   );
@@ -368,7 +413,21 @@ export default function RoomsPage() {
       {/* Nội dung chính */}
       <div style={{position: "relative", zIndex: 1}}>
         <div style={{maxWidth: 700, margin: "0 auto 24px auto", display: "flex", alignItems: "center", gap: 16}}>
-          <Link href="/" style={{background: "#ee4c40", color: "#fff", border: "none", borderRadius: 8, padding: "8px 18px", fontWeight: 700, textDecoration: "none", fontSize: 16, cursor: "pointer"}}>← Trang chủ</Link>
+          <Link href="/" style={{
+            background: "#ee4c40",
+            color: "#fff",
+            border: "none",
+            borderRadius: 8,
+            padding: "8px 18px",
+            fontWeight: 700,
+            textDecoration: "none",
+            fontSize: 16,
+            cursor: "pointer",
+            transition: "background 0.18s, transform 0.18s"
+          }}
+          onMouseEnter={e => e.currentTarget.style.background = '#d63a2a'}
+          onMouseLeave={e => e.currentTarget.style.background = '#ee4c40'}
+          >← Trang chủ</Link>
           <input
             type="text"
             placeholder="Tìm kiếm phòng, tiện ích..."
@@ -410,7 +469,7 @@ export default function RoomsPage() {
             room.amenities.join(",").toLowerCase().includes(search.toLowerCase())
           );
           const totalPages = Math.ceil(filteredRooms.length / perPage);
-          return totalPages > 1 && (
+          return totalPages > 1 ? (
             <div style={{display: "flex", justifyContent: "center", gap: 8, marginTop: 32}}>
               {Array.from({length: totalPages}, (_, i) => (
                 <button
@@ -431,7 +490,7 @@ export default function RoomsPage() {
                 </button>
               ))}
             </div>
-          );
+          ) : null;
         })()}
       </div>
     </div>
