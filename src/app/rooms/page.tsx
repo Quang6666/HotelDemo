@@ -488,7 +488,7 @@ export default function RoomsPage() {
           </filter>
         </defs>
         {/* Chồng sao băng lên cả vùng mặt trăng */}
-        <g style={{mixBlendMode: "lighter"}}>
+        <g style={{mixBlendMode: "lighten"}}>
         {(() => {
           // Chỉ render sao băng, loại bỏ sao lấp lánh
           const numMeteors = 3;
