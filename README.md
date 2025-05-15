@@ -34,3 +34,29 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+# Hotel Demo UI
+
+This is a responsive front-end interface for a hotel booking website.
+
+## 🔹 Features
+- Modern hotel landing page
+- Room list and detail pages
+- Booking form (UI only)
+- Responsive design (mobile/tablet/desktop)
+
+## 💡 Tech Stack
+- HTML, CSS, JavaScript
+- Bootstrap / Tailwind (nếu có)
+- [Optional] React/Vue (nếu bạn nâng cấp sau)
+
+## 🚀 Demo
+👉 Live preview: [https://your-vercel-link.vercel.app](https://your-vercel-link.vercel.app)
+
+## 📂 Screenshots
+*(Thêm 1-2 hình giao diện để gây ấn tượng)*
+
+## 📌 Notes
+This is a UI-only project, no backend included.
+
