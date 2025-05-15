@@ -10,7 +10,7 @@ export default function Home() {
           <a href="/rooms">Phòng</a>
           <a href="#services">Dịch vụ</a>
           <a href="#about">Giới thiệu</a>
-          <a href="#contact">Liên hệ</a>
+          <a href="/contact-booking">Liên hệ</a>
           <span className="badge">Top Hotel 2025</span>
         </nav>
       </header>
