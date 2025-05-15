@@ -1,6 +1,13 @@
+'use client';
 import React from "react";
 
 export default function Home() {
+  const scrollToBooking = () => {
+    if (typeof window !== 'undefined') {
+      document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <header className="header">
@@ -18,7 +25,7 @@ export default function Home() {
         <div className="hero-content">
           <h1>Khách sạn FirstHotel</h1>
           <p>Đặt phòng khách sạn cao cấp, tiện nghi, giá tốt!</p>
-          <button className="btn-accent" onClick={() => document.getElementById('booking')?.scrollIntoView({behavior: 'smooth'})}>
+          <button className="btn-accent" onClick={scrollToBooking}>
             Đặt phòng ngay <i className="fas fa-arrow-right"></i>
           </button>
         </div>
@@ -118,7 +125,6 @@ export default function Home() {
         </div>
       </footer>
       <a href="#booking" className="floating-btn"><i className="fas fa-phone-alt"></i> Đặt phòng</a>
-      <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossOrigin="anonymous"></script>
     </>
   );
 }
