@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 const rooms = [
   {
@@ -37,41 +39,176 @@ const rooms = [
     people: 4,
     size: "50m²",
     reviews: "Phòng sang trọng, view biển tuyệt vời, dịch vụ tốt."
+  },
+  {
+    name: "Family Room",
+    price: "2.000.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["2 giường đôi", "Bàn làm việc", "Tủ lạnh", "Phòng tắm riêng"],
+    people: 4,
+    size: "40m²",
+    reviews: "Phòng rộng rãi, phù hợp gia đình, tiện nghi đầy đủ."
+  },
+  {
+    name: "Executive",
+    price: "3.000.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["Phòng họp riêng", "Bồn tắm Jacuzzi", "Máy pha cà phê", "View toàn cảnh"],
+    people: 2,
+    size: "45m²",
+    reviews: "Không gian sang trọng, dịch vụ cao cấp, rất hài lòng cho công tác." 
+  },
+  {
+    name: "Presidential Suite",
+    price: "6.000.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["Phòng khách lớn", "Bếp riêng", "Bồn tắm sang trọng", "Ban công rộng"],
+    people: 6,
+    size: "100m²",
+    reviews: "Đẳng cấp, tiện nghi tuyệt vời, trải nghiệm như tổng thống!"
   }
 ];
 
-export default function RoomsPage() {
-  const [selected, setSelected] = useState(0);
+function RoomCard({ room }: { room: typeof rooms[0] }) {
   const [imgIdx, setImgIdx] = useState(0);
-  const room = rooms[selected];
-
+  const [hovered, setHovered] = useState(false);
   const nextImg = () => setImgIdx((imgIdx + 1) % room.images.length);
   const prevImg = () => setImgIdx((imgIdx - 1 + room.images.length) % room.images.length);
-
   return (
-    <div style={{maxWidth: 600, margin: "40px auto", background: "#fff", borderRadius: 18, boxShadow: "0 4px 24px rgba(0,0,0,0.10)", overflow: "hidden"}}>
-      <div style={{position: "relative", height: 320, background: "#eee"}}>
-        <img src={room.images[imgIdx]} alt={room.name} style={{width: "100%", height: 320, objectFit: "cover"}} />
-        <button onClick={prevImg} style={{position: "absolute", top: "50%", left: 10, transform: "translateY(-50%)", background: "rgba(0,0,0,0.4)", color: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, fontSize: 20, cursor: "pointer"}}>&lt;</button>
-        <button onClick={nextImg} style={{position: "absolute", top: "50%", right: 10, transform: "translateY(-50%)", background: "rgba(0,0,0,0.4)", color: "#fff", border: "none", borderRadius: "50%", width: 36, height: 36, fontSize: 20, cursor: "pointer"}}>&gt;</button>
-        <div style={{position: "absolute", bottom: 10, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 8}}>
+    <div
+      style={{
+        width: 320,
+        margin: "24px 16px",
+        background: "#fff",
+        borderRadius: 16,
+        boxShadow: hovered ? "0 8px 32px rgba(238,76,64,0.18)" : "0 2px 12px rgba(0,0,0,0.10)",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        transform: hovered ? "scale(1.045)" : "scale(1)",
+        transition: "transform 0.25s cubic-bezier(.4,2,.3,1), box-shadow 0.25s cubic-bezier(.4,2,.3,1)",
+        cursor: "pointer"
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div style={{position: "relative", height: 180, background: "#eee"}}>
+        <Image src={room.images[imgIdx]} alt={room.name} width={320} height={180} style={{width: "100%", height: 180, objectFit: "cover"}} />
+        <button onClick={prevImg} style={{position: "absolute", top: "50%", left: 8, transform: "translateY(-50%)", background: "rgba(0,0,0,0.4)", color: "#fff", border: "none", borderRadius: "50%", width: 28, height: 28, fontSize: 16, cursor: "pointer"}}>&lt;</button>
+        <button onClick={nextImg} style={{position: "absolute", top: "50%", right: 8, transform: "translateY(-50%)", background: "rgba(0,0,0,0.4)", color: "#fff", border: "none", borderRadius: "50%", width: 28, height: 28, fontSize: 16, cursor: "pointer"}}>&gt;</button>
+        <div style={{position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 6}}>
           {room.images.map((_, i) => (
-            <span key={i} style={{width: 10, height: 10, borderRadius: "50%", background: i === imgIdx ? "#ee4c40" : "#fff", border: "1px solid #ee4c40", display: "inline-block", cursor: "pointer"}} onClick={() => setImgIdx(i)}></span>
+            <span key={i} style={{width: 8, height: 8, borderRadius: "50%", background: i === imgIdx ? "#ee4c40" : "#fff", border: "1px solid #ee4c40", display: "inline-block", cursor: "pointer"}} onClick={() => setImgIdx(i)}></span>
           ))}
         </div>
       </div>
-      <div style={{padding: 28, background: "#fff"}}>
-        <div style={{display: "flex", gap: 16, marginBottom: 18}}>
-          {rooms.map((r, i) => (
-            <button key={r.name} onClick={() => {setSelected(i); setImgIdx(0);}} style={{background: i === selected ? "#ee4c40" : "#e9e9e9", color: i === selected ? "#fff" : "#232329", border: "none", borderRadius: 16, padding: "8px 18px", fontWeight: 700, cursor: "pointer"}}>{r.name}</button>
-          ))}
+      <div style={{padding: 16, background: "#fff", display: "flex", flexDirection: "column", gap: 6}}>
+        <h2 style={{margin: "0 0 4px 0", color: "#232329", fontSize: 20}}>{room.name}</h2>
+        <div style={{fontSize: 18, color: "#ee4c40", fontWeight: 700, marginBottom: 4}}>{room.price}</div>
+        <div style={{marginBottom: 2, color: "#232329", fontSize: 14}}><b>Tiện ích:</b> {room.amenities.join(", ")}</div>
+        <div style={{marginBottom: 2, color: "#232329", fontSize: 14}}><b>Số người phù hợp:</b> {room.people}</div>
+        <div style={{marginBottom: 2, color: "#232329", fontSize: 14}}><b>Diện tích:</b> {room.size}</div>
+        <div style={{marginBottom: 2, color: "#232329", fontSize: 14}}><b>Nhận xét:</b> <i>&ldquo;{room.reviews}&rdquo;</i></div>
+      </div>
+    </div>
+  );
+}
+
+export default function RoomsPage() {
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const perRow = 3;
+  const perCol = 5;
+  const perPage = perRow * perCol;
+
+  return (
+    <div style={{position: "relative", padding: "32px 0", background: "#181a20", minHeight: "100vh", overflow: "hidden"}}>
+      {/* SVG wave động nền */}
+      <svg
+        style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 0, pointerEvents: "none"}}
+        viewBox="0 0 1440 600"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="waveGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#ee4c40">
+              <animate attributeName="stop-color" values="#ee4c40;#3a8dde;#ee4c40" dur="8s" repeatCount="indefinite" />
+            </stop>
+            <stop offset="100%" stopColor="#232329">
+              <animate attributeName="stop-color" values="#232329;#ee4c40;#232329" dur="8s" repeatCount="indefinite" />
+            </stop>
+          </linearGradient>
+        </defs>
+        <path
+          d="M0,400 Q360,350 720,400 T1440,400 V600 H0 Z"
+          fill="url(#waveGradient)"
+          opacity="0.18"
+        >
+          <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0 0" to="0 30" dur="6s" repeatCount="indefinite" direction="alternate"/>
+        </path>
+        <path
+          d="M0,480 Q360,430 720,480 T1440,480 V600 H0 Z"
+          fill="url(#waveGradient)"
+          opacity="0.12"
+        >
+          <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0 0" to="0 20" dur="7s" repeatCount="indefinite" direction="alternate"/>
+        </path>
+      </svg>
+      {/* Nội dung chính */}
+      <div style={{position: "relative", zIndex: 1}}>
+        <div style={{maxWidth: 700, margin: "0 auto 24px auto", display: "flex", alignItems: "center", gap: 16}}>
+          <Link href="/" style={{background: "#ee4c40", color: "#fff", border: "none", borderRadius: 8, padding: "8px 18px", fontWeight: 700, textDecoration: "none", fontSize: 16, cursor: "pointer"}}>← Trang chủ</Link>
+          <input
+            type="text"
+            placeholder="Tìm kiếm phòng, tiện ích..."
+            value={search}
+            onChange={e => { setSearch(e.target.value); setPage(1); }}
+            style={{flex: 1, padding: "10px 16px", borderRadius: 8, border: "1px solid #ccc", fontSize: 16}}
+          />
         </div>
-        <h2 style={{margin: "8px 0 12px 0", color: "#232329"}}>{room.name}</h2>
-        <div style={{fontSize: 22, color: "#ee4c40", fontWeight: 700, marginBottom: 10}}>{room.price}</div>
-        <div style={{marginBottom: 10}}><b>Tiện ích:</b> {room.amenities.join(", ")}</div>
-        <div style={{marginBottom: 10}}><b>Số người phù hợp:</b> {room.people}</div>
-        <div style={{marginBottom: 10}}><b>Diện tích:</b> {room.size}</div>
-        <div style={{marginBottom: 10}}><b>Nhận xét:</b> <i></i></div>
+        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16, maxWidth: perRow*340, margin: "0 auto"}}>
+          {(() => {
+            const filteredRooms = rooms.filter(room =>
+              room.name.toLowerCase().includes(search.toLowerCase()) ||
+              room.amenities.join(",").toLowerCase().includes(search.toLowerCase())
+            );
+            const totalPages = Math.ceil(filteredRooms.length / perPage);
+            const pagedRooms = filteredRooms.slice((page-1)*perPage, page*perPage);
+            return pagedRooms.length === 0 ? (
+              <div style={{color: "#ee4c40", fontWeight: 700, fontSize: 18, marginTop: 32}}>Không tìm thấy phòng phù hợp.</div>
+            ) : (
+              pagedRooms.map((room) => (
+                <RoomCard key={room.name} room={room} />
+              ))
+            );
+          })()}
+        </div>
+        {/* Phân trang */}
+        {(() => {
+          const filteredRooms = rooms.filter(room =>
+            room.name.toLowerCase().includes(search.toLowerCase()) ||
+            room.amenities.join(",").toLowerCase().includes(search.toLowerCase())
+          );
+          const totalPages = Math.ceil(filteredRooms.length / perPage);
+          return totalPages > 1 && (
+            <div style={{display: "flex", justifyContent: "center", gap: 8, marginTop: 32}}>
+              <button onClick={() => setPage(page-1)} disabled={page===1} style={{padding: "8px 14px", borderRadius: 6, border: "none", background: page===1?"#ccc":"#ee4c40", color: "#fff", fontWeight: 700, cursor: page===1?"not-allowed":"pointer"}}>&lt;</button>
+              {Array.from({length: totalPages}).map((_,i)=>(
+                <button key={i} onClick={()=>setPage(i+1)} style={{padding: "8px 14px", borderRadius: 6, border: "none", background: page===i+1?"#ee4c40":"#fff", color: page===i+1?"#fff":"#232329", fontWeight: 700, cursor: "pointer"}}>{i+1}</button>
+              ))}
+              <button onClick={() => setPage(page+1)} disabled={page===totalPages} style={{padding: "8px 14px", borderRadius: 6, border: "none", background: page===totalPages?"#ccc":"#ee4c40", color: "#fff", fontWeight: 700, cursor: page===totalPages?"not-allowed":"pointer"}}>&gt;</button>
+            </div>
+          );
+        })()}
       </div>
     </div>
   );
