@@ -75,6 +75,126 @@ const rooms = [
     people: 6,
     size: "100m²",
     reviews: "Đẳng cấp, tiện nghi tuyệt vời, trải nghiệm như tổng thống!"
+  },
+  {
+    name: "Business Room",
+    price: "1.600.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["Bàn làm việc", "Wifi tốc độ cao", "TV", "Mini Bar"],
+    people: 2,
+    size: "28m²",
+    reviews: "Phòng tiện nghi cho công tác, yên tĩnh, sạch sẽ."
+  },
+  {
+    name: "Standard",
+    price: "1.000.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["Wifi miễn phí", "TV", "Điều hòa", "Tủ lạnh"],
+    people: 2,
+    size: "22m²",
+    reviews: "Giá tốt, phòng sạch, đủ tiện nghi cơ bản."
+  },
+  {
+    name: "Twin Room",
+    price: "1.300.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["2 giường đơn", "TV", "Tủ lạnh", "Phòng tắm riêng"],
+    people: 2,
+    size: "26m²",
+    reviews: "Phòng phù hợp bạn bè, tiện nghi ổn."
+  },
+  {
+    name: "King Room",
+    price: "2.200.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["Giường King", "Bồn tắm lớn", "Ban công", "View thành phố"],
+    people: 2,
+    size: "35m²",
+    reviews: "Phòng rộng, view đẹp, giường lớn thoải mái."
+  },
+  {
+    name: "Studio",
+    price: "1.700.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["Bếp nhỏ", "Bàn ăn", "TV", "Wifi miễn phí"],
+    people: 2,
+    size: "30m²",
+    reviews: "Phòng tiện nghi, phù hợp ở dài ngày."
+  },
+  {
+    name: "Penthouse",
+    price: "7.000.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["Sân thượng riêng", "Bồn tắm sang trọng", "View toàn cảnh", "Phòng khách lớn"],
+    people: 8,
+    size: "150m²",
+    reviews: "Không gian đẳng cấp, cực kỳ sang trọng."
+  },
+  {
+    name: "Single Room",
+    price: "900.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["Giường đơn", "Wifi miễn phí", "TV"],
+    people: 1,
+    size: "18m²",
+    reviews: "Phòng nhỏ gọn, giá rẻ, phù hợp đi công tác."
+  },
+  {
+    name: "Triple Room",
+    price: "1.900.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["3 giường đơn", "Bàn làm việc", "Tủ lạnh", "Phòng tắm riêng"],
+    people: 3,
+    size: "38m²",
+    reviews: "Phòng rộng, phù hợp nhóm bạn hoặc gia đình nhỏ."
+  },
+  {
+    name: "Queen Room",
+    price: "2.000.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["Giường Queen", "Ban công", "Bồn tắm", "View thành phố"],
+    people: 2,
+    size: "33m²",
+    reviews: "Phòng đẹp, tiện nghi, giường lớn."
+  },
+  {
+    name: "Connecting Room",
+    price: "2.400.000đ/đêm",
+    images: [
+      "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
+    ],
+    amenities: ["2 phòng thông nhau", "2 phòng tắm", "Bếp nhỏ", "TV"],
+    people: 5,
+    size: "60m²",
+    reviews: "Rất tiện cho gia đình đông người hoặc nhóm bạn."
   }
 ];
 
@@ -82,6 +202,14 @@ function RoomCard({ room }: { room: typeof rooms[0] }) {
   const [imgIdx, setImgIdx] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [btnAnim, setBtnAnim] = useState<{left: boolean; right: boolean}>({left: false, right: false});
+  // Hiệu ứng tự chuyển ảnh đơn giản (không slide)
+  React.useEffect(() => {
+    if (hovered) return;
+    const timer = setInterval(() => {
+      setImgIdx(idx => (idx + 1) % room.images.length);
+    }, 2600);
+    return () => clearInterval(timer);
+  }, [hovered, room.images.length]);
   const nextImg = () => {
     setBtnAnim(a => ({...a, right: true}));
     setTimeout(() => setBtnAnim(a => ({...a, right: false})), 180);
@@ -174,8 +302,7 @@ export default function RoomsPage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const perRow = 3;
-  const perCol = 5;
-  const perPage = perRow * perCol;
+  const perPage = 9;
 
   return (
     <div style={{position: "relative", padding: "32px 0", background: "#23262d", minHeight: "100vh", overflow: "hidden"}}>
@@ -250,7 +377,14 @@ export default function RoomsPage() {
             style={{flex: 1, padding: "10px 16px", borderRadius: 8, border: "1px solid #ccc", fontSize: 16}}
           />
         </div>
-        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16, maxWidth: perRow*340, margin: "0 auto"}}>
+        <div style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: 24,
+          maxWidth: 3*340 + 2*24, // 3 khung + 2 khoảng cách
+          margin: "0 auto"
+        }}>
           {(() => {
             const filteredRooms = rooms.filter(room =>
               room.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -262,7 +396,9 @@ export default function RoomsPage() {
               <div style={{color: "#ee4c40", fontWeight: 700, fontSize: 18, marginTop: 32}}>Không tìm thấy phòng phù hợp.</div>
             ) : (
               pagedRooms.map((room) => (
-                <RoomCard key={room.name} room={room} />
+                <div key={room.name} style={{flex: "0 0 320px", maxWidth: 320, minWidth: 280, boxSizing: "border-box"}}>
+                  <RoomCard room={room} />
+                </div>
               ))
             );
           })()}
@@ -276,11 +412,24 @@ export default function RoomsPage() {
           const totalPages = Math.ceil(filteredRooms.length / perPage);
           return totalPages > 1 && (
             <div style={{display: "flex", justifyContent: "center", gap: 8, marginTop: 32}}>
-              <button onClick={() => setPage(page-1)} disabled={page===1} style={{padding: "8px 14px", borderRadius: 6, border: "none", background: page===1?"#ccc":"#ee4c40", color: "#fff", fontWeight: 700, cursor: page===1?"not-allowed":"pointer"}}>&lt;</button>
-              {Array.from({length: totalPages}).map((_,i)=>(
-                <button key={i} onClick={()=>setPage(i+1)} style={{padding: "8px 14px", borderRadius: 6, border: "none", background: page===i+1?"#ee4c40":"#fff", color: page===i+1?"#fff":"#232329", fontWeight: 700, cursor: "pointer"}}>{i+1}</button>
+              {Array.from({length: totalPages}, (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setPage(i+1)}
+                  style={{
+                    background: page === i+1 ? "#ee4c40" : "#fff",
+                    color: page === i+1 ? "#fff" : "#232329",
+                    border: "1px solid #ee4c40",
+                    borderRadius: 8,
+                    padding: "8px 16px",
+                    cursor: "pointer",
+                    fontWeight: 700,
+                    fontSize: 16
+                  }}
+                >
+                  {i+1}
+                </button>
               ))}
-              <button onClick={() => setPage(page+1)} disabled={page===totalPages} style={{padding: "8px 14px", borderRadius: 6, border: "none", background: page===totalPages?"#ccc":"#ee4c40", color: "#fff", fontWeight: 700, cursor: page===totalPages?"not-allowed":"pointer"}}>&gt;</button>
             </div>
           );
         })()}
