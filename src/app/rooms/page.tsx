@@ -81,8 +81,17 @@ const rooms = [
 function RoomCard({ room }: { room: typeof rooms[0] }) {
   const [imgIdx, setImgIdx] = useState(0);
   const [hovered, setHovered] = useState(false);
-  const nextImg = () => setImgIdx((imgIdx + 1) % room.images.length);
-  const prevImg = () => setImgIdx((imgIdx - 1 + room.images.length) % room.images.length);
+  const [btnAnim, setBtnAnim] = useState<{left: boolean; right: boolean}>({left: false, right: false});
+  const nextImg = () => {
+    setBtnAnim(a => ({...a, right: true}));
+    setTimeout(() => setBtnAnim(a => ({...a, right: false})), 180);
+    setImgIdx((imgIdx + 1) % room.images.length);
+  };
+  const prevImg = () => {
+    setBtnAnim(a => ({...a, left: true}));
+    setTimeout(() => setBtnAnim(a => ({...a, left: false})), 180);
+    setImgIdx((imgIdx - 1 + room.images.length) % room.images.length);
+  };
   return (
     <div
       style={{
@@ -103,8 +112,46 @@ function RoomCard({ room }: { room: typeof rooms[0] }) {
     >
       <div style={{position: "relative", height: 180, background: "#eee"}}>
         <Image src={room.images[imgIdx]} alt={room.name} width={320} height={180} style={{width: "100%", height: 180, objectFit: "cover"}} />
-        <button onClick={prevImg} style={{position: "absolute", top: "50%", left: 8, transform: "translateY(-50%)", background: "rgba(0,0,0,0.4)", color: "#fff", border: "none", borderRadius: "50%", width: 28, height: 28, fontSize: 16, cursor: "pointer"}}>&lt;</button>
-        <button onClick={nextImg} style={{position: "absolute", top: "50%", right: 8, transform: "translateY(-50%)", background: "rgba(0,0,0,0.4)", color: "#fff", border: "none", borderRadius: "50%", width: 28, height: 28, fontSize: 16, cursor: "pointer"}}>&gt;</button>
+        <button
+          onClick={prevImg}
+          style={{
+            position: "absolute", top: "50%", left: 8, transform: "translateY(-50%)",
+            background: btnAnim.left ? "#ee4c40" : "rgba(0,0,0,0.38)",
+            color: btnAnim.left ? "#fff" : "#fff",
+            border: btnAnim.left ? "2px solid #ee4c40" : "2px solid #fff",
+            borderRadius: "50%", width: 32, height: 32, fontSize: 18, cursor: "pointer",
+            outline: "none",
+            boxShadow: btnAnim.left ? "0 0 0 4px rgba(238,76,64,0.12)" : "0 2px 8px rgba(0,0,0,0.10)",
+            transition: "background 0.18s, border 0.18s, box-shadow 0.18s, transform 0.18s cubic-bezier(.4,2,.3,1)",
+            transformOrigin: "center",
+            ...(btnAnim.left ? {transform: "translateY(-50%) scale(1.25)"} : {})
+          }}
+          aria-label="Ảnh trước"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style={{display: "block", margin: "auto"}}>
+            <path d="M10.5 13L6 8L10.5 3" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        <button
+          onClick={nextImg}
+          style={{
+            position: "absolute", top: "50%", right: 8, transform: "translateY(-50%)",
+            background: btnAnim.right ? "#ee4c40" : "rgba(0,0,0,0.38)",
+            color: btnAnim.right ? "#fff" : "#fff",
+            border: btnAnim.right ? "2px solid #ee4c40" : "2px solid #fff",
+            borderRadius: "50%", width: 32, height: 32, fontSize: 18, cursor: "pointer",
+            outline: "none",
+            boxShadow: btnAnim.right ? "0 0 0 4px rgba(238,76,64,0.12)" : "0 2px 8px rgba(0,0,0,0.10)",
+            transition: "background 0.18s, border 0.18s, box-shadow 0.18s, transform 0.18s cubic-bezier(.4,2,.3,1)",
+            transformOrigin: "center",
+            ...(btnAnim.right ? {transform: "translateY(-50%) scale(1.25)"} : {})
+          }}
+          aria-label="Ảnh sau"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style={{display: "block", margin: "auto"}}>
+            <path d="M5.5 13L10 8L5.5 3" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
         <div style={{position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 6}}>
           {room.images.map((_, i) => (
             <span key={i} style={{width: 8, height: 8, borderRadius: "50%", background: i === imgIdx ? "#ee4c40" : "#fff", border: "1px solid #ee4c40", display: "inline-block", cursor: "pointer"}} onClick={() => setImgIdx(i)}></span>
@@ -131,7 +178,7 @@ export default function RoomsPage() {
   const perPage = perRow * perCol;
 
   return (
-    <div style={{position: "relative", padding: "32px 0", background: "#181a20", minHeight: "100vh", overflow: "hidden"}}>
+    <div style={{position: "relative", padding: "32px 0", background: "#23262d", minHeight: "100vh", overflow: "hidden"}}>
       {/* SVG wave động nền */}
       <svg
         style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 0, pointerEvents: "none"}}
