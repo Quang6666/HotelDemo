@@ -350,7 +350,73 @@ export default function RoomsPage() {
   const perPage = 9;
 
   return (
-    <div style={{position: "relative", padding: "32px 0", background: "#23262d", minHeight: "100vh", overflow: "hidden"}}>
+    <div style={{
+      position: "relative",
+      padding: "32px 0",
+      background: "#232946", // bầu trời đêm đậm hơn
+      minHeight: "100vh",
+      overflow: "hidden"
+    }}>
+      {/* Bầu trời đêm với sao lấp lánh */}
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "55%",
+        zIndex: 0,
+        pointerEvents: "none",
+        background: "linear-gradient(180deg, #232946 70%, rgba(35,41,70,0.0) 100%)"
+      }}>
+        {/* Sao băng xen kẽ để chồng lên nhau */}
+        <g style={{mixBlendMode: "lighten"}}>
+        {(() => {
+          // Chỉ render sao băng, loại bỏ sao lấp lánh
+          const numMeteors = 3;
+          const meteorElements = Array.from({length: numMeteors}).map((_, meteorIdx) => {
+            const mSeed = 9000 + meteorIdx * 100;
+            function mRand(j: number) {
+              const x = Math.sin(mSeed + j) * 10000;
+              return x - Math.floor(x);
+            }
+            const startX = mRand(1) * 80 + 10; // 10% - 90%
+            const startY = mRand(2) * 30 + 5;  // 5% - 35%
+            const len = mRand(3) * 60 + 60;    // 60-120px
+            const delay = (mRand(4) * 4).toFixed(2);
+            const x1 = `${startX}%`;
+            const y1 = `${startY}%`;
+            const x2 = `${startX + 0.8}%`;
+            const y2 = `${startY + 0.8}%`;
+            const x1_2 = `${startX + len}%`;
+            const y1_2 = `${startY + len * 0.25}%`;
+            const x2_2 = `${startX + len + 0.8}%`;
+            const y2_2 = `${startY + len * 0.25 + 0.8}%`;
+            return (
+              <g key={"meteor-"+meteorIdx}>
+                <line
+                  x1={x1}
+                  y1={y1}
+                  x2={x2}
+                  y2={y2}
+                  stroke="#fff"
+                  strokeWidth="4.5"
+                  strokeLinecap="round"
+                  opacity="0.95"
+                  filter="drop-shadow(0 0 16px #fff)"
+                >
+                  <animate attributeName="x1" values={`${x1};${x1_2}`} keyTimes="0;1" dur="2.8s" begin={delay + 's'} repeatCount="indefinite" fill="freeze" />
+                  <animate attributeName="y1" values={`${y1};${y1_2}`} keyTimes="0;1" dur="2.8s" begin={delay + 's'} repeatCount="indefinite" fill="freeze" />
+                  <animate attributeName="x2" values={`${x2};${x2_2}`} keyTimes="0;1" dur="2.8s" begin={delay + 's'} repeatCount="indefinite" fill="freeze" />
+                  <animate attributeName="y2" values={`${y2};${y2_2}`} keyTimes="0;1" dur="2.8s" begin={delay + 's'} repeatCount="indefinite" fill="freeze" />
+                  <animate attributeName="opacity" values="0.95;1;0" keyTimes="0;0.2;1" dur="2.8s" begin={delay + 's'} repeatCount="indefinite" fill="freeze" />
+                </line>
+              </g>
+            );
+          });
+          return meteorElements;
+        })()}
+        </g>
+      </div>
       {/* SVG wave động nền */}
       <svg
         style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 0, pointerEvents: "none"}}
@@ -359,11 +425,11 @@ export default function RoomsPage() {
       >
         <defs>
           <linearGradient id="waveGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#ee4c40">
-              <animate attributeName="stop-color" values="#ee4c40;#3a8dde;#ee4c40" dur="8s" repeatCount="indefinite" />
+            <stop offset="0%" stopColor="#00c6fb">
+              <animate attributeName="stop-color" values="#00c6fb;#005bea;#00c6fb" dur="8s" repeatCount="indefinite" />
             </stop>
-            <stop offset="100%" stopColor="#232329">
-              <animate attributeName="stop-color" values="#232329;#ee4c40;#232329" dur="8s" repeatCount="indefinite" />
+            <stop offset="100%" stopColor="#005bea">
+              <animate attributeName="stop-color" values="#005bea;#00c6fb;#005bea" dur="8s" repeatCount="indefinite" />
             </stop>
           </linearGradient>
         </defs>
@@ -409,6 +475,67 @@ export default function RoomsPage() {
             calcMode="spline"
           />
         </path>
+      </svg>
+      <svg width="100%" height="100%" style={{position: "absolute", top: 0, left: 0}}>
+        {/* Mặt trăng */}
+        <circle cx="84%" cy="22%" r="32" fill="#fffbe8" filter="url(#moonGlow)" />
+        <defs>
+          <filter id="moonGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="10" result="glow" />
+            <feMerge>
+              <feMergeNode in="glow" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        {/* Chồng sao băng lên cả vùng mặt trăng */}
+        <g style={{mixBlendMode: "lighter"}}>
+        {(() => {
+          // Chỉ render sao băng, loại bỏ sao lấp lánh
+          const numMeteors = 3;
+          const meteorElements = Array.from({length: numMeteors}).map((_, meteorIdx) => {
+            const mSeed = 9000 + meteorIdx * 100;
+            function mRand(j: number) {
+              const x = Math.sin(mSeed + j) * 10000;
+              return x - Math.floor(x);
+            }
+            const startX = mRand(1) * 80 + 10; // 10% - 90%
+            const startY = mRand(2) * 30 + 5;  // 5% - 35%
+            const len = mRand(3) * 60 + 60;    // 60-120px
+            const delay = (mRand(4) * 4).toFixed(2);
+            const x1 = `${startX}%`;
+            const y1 = `${startY}%`;
+            const x2 = `${startX + 0.8}%`;
+            const y2 = `${startY + 0.8}%`;
+            const x1_2 = `${startX + len}%`;
+            const y1_2 = `${startY + len * 0.25}%`;
+            const x2_2 = `${startX + len + 0.8}%`;
+            const y2_2 = `${startY + len * 0.25 + 0.8}%`;
+            return (
+              <g key={"meteor-"+meteorIdx}>
+                <line
+                  x1={x1}
+                  y1={y1}
+                  x2={x2}
+                  y2={y2}
+                  stroke="#fff"
+                  strokeWidth="4.5"
+                  strokeLinecap="round"
+                  opacity="0.95"
+                  filter="drop-shadow(0 0 16px #fff)"
+                >
+                  <animate attributeName="x1" values={`${x1};${x1_2}`} keyTimes="0;1" dur="2.8s" begin={delay + 's'} repeatCount="indefinite" fill="freeze" />
+                  <animate attributeName="y1" values={`${y1};${y1_2}`} keyTimes="0;1" dur="2.8s" begin={delay + 's'} repeatCount="indefinite" fill="freeze" />
+                  <animate attributeName="x2" values={`${x2};${x2_2}`} keyTimes="0;1" dur="2.8s" begin={delay + 's'} repeatCount="indefinite" fill="freeze" />
+                  <animate attributeName="y2" values={`${y2};${y2_2}`} keyTimes="0;1" dur="2.8s" begin={delay + 's'} repeatCount="indefinite" fill="freeze" />
+                  <animate attributeName="opacity" values="0.95;1;0" keyTimes="0;0.2;1" dur="2.8s" begin={delay + 's'} repeatCount="indefinite" fill="freeze" />
+                </line>
+              </g>
+            );
+          });
+          return meteorElements;
+        })()}
+        </g>
       </svg>
       {/* Nội dung chính */}
       <div style={{position: "relative", zIndex: 1}}>
