@@ -346,7 +346,6 @@ function RoomCard({ room }: { room: typeof rooms[0] & { status?: string } }) {
 export default function RoomsPage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const perRow = 3;
   const perPage = 9;
 
   return (
@@ -576,7 +575,6 @@ export default function RoomsPage() {
               room.name.toLowerCase().includes(search.toLowerCase()) ||
               room.amenities.join(",").toLowerCase().includes(search.toLowerCase())
             );
-            const totalPages = Math.ceil(filteredRooms.length / perPage);
             const pagedRooms = filteredRooms.slice((page-1)*perPage, page*perPage);
             return pagedRooms.length === 0 ? (
               <div style={{color: "#ee4c40", fontWeight: 700, fontSize: 18, marginTop: 32}}>Không tìm thấy phòng phù hợp.</div>
