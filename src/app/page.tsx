@@ -2,12 +2,6 @@
 import React from "react";
 
 export default function Home() {
-  const scrollToBooking = () => {
-    if (typeof window !== 'undefined') {
-      document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <>
       <header className="header">
