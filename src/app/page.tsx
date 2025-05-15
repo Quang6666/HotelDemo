@@ -14,7 +14,7 @@ export default function Home() {
         <div className="logo">FirstHotel</div>
         <nav className="nav">
           <a href="#home">Trang chủ</a>
-          <a href="#rooms">Phòng</a>
+          <a href="/rooms">Phòng</a>
           <a href="#services">Dịch vụ</a>
           <a href="#about">Giới thiệu</a>
           <a href="#contact">Liên hệ</a>
