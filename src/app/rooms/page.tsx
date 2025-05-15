@@ -148,19 +148,47 @@ export default function RoomsPage() {
             </stop>
           </linearGradient>
         </defs>
+        {/* Wave 1: animate d để sóng lắc lư qua lại, không bị ngắt quãng */}
         <path
+          id="wave1"
           d="M0,400 Q360,350 720,400 T1440,400 V600 H0 Z"
           fill="url(#waveGradient)"
           opacity="0.18"
         >
-          <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0 0" to="0 30" dur="6s" repeatCount="indefinite" direction="alternate"/>
+          <animate 
+            attributeName="d"
+            dur="7s"
+            repeatCount="indefinite"
+            values="
+              M0,400 Q360,350 720,400 T1440,400 V600 H0 Z;
+              M0,410 Q360,370 720,390 T1440,410 V600 H0 Z;
+              M0,400 Q360,350 720,400 T1440,400 V600 H0 Z
+            "
+            keyTimes="0;0.5;1"
+            keySplines="0.42 0 0.58 1;0.42 0 0.58 1"
+            calcMode="spline"
+          />
         </path>
+        {/* Wave 2: animate d với pha lệch để tạo hiệu ứng sóng chồng */}
         <path
+          id="wave2"
           d="M0,480 Q360,430 720,480 T1440,480 V600 H0 Z"
           fill="url(#waveGradient)"
           opacity="0.12"
         >
-          <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0 0" to="0 20" dur="7s" repeatCount="indefinite" direction="alternate"/>
+          <animate 
+            attributeName="d"
+            dur="9s"
+            repeatCount="indefinite"
+            values="
+              M0,480 Q360,430 720,480 T1440,480 V600 H0 Z;
+              M0,470 Q360,450 720,470 T1440,470 V600 H0 Z;
+              M0,480 Q360,430 720,480 T1440,480 V600 H0 Z
+            "
+            keyTimes="0;0.5;1"
+            keySplines="0.42 0 0.58 1;0.42 0 0.58 1"
+            calcMode="spline"
+          />
         </path>
       </svg>
       {/* Nội dung chính */}
