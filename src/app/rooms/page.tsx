@@ -318,25 +318,26 @@ function RoomCard({ room }: { room: typeof rooms[0] & { status?: string } }) {
         <div style={{marginBottom: 2, color: "#232329", fontSize: 14}}><b>Nhận xét:</b> <i>&ldquo;{room.reviews}&rdquo;</i></div>
         {/* Nút xem chi tiết căn giữa dưới cùng */}
         <div style={{display: "flex", justifyContent: "center", marginTop: "auto", marginBottom: 0, flexGrow: 1, alignItems: "flex-end"}}>
-          <a href="/rooms" style={{
-            background: "#ee4c40",
-            color: "#fff",
-            border: "none",
-            borderRadius: 8,
-            padding: "10px 28px",
-            fontWeight: 700,
-            fontSize: 16,
-            textDecoration: "none",
-            boxShadow: "0 2px 8px rgba(238,76,64,0.10)",
-            transition: "background 0.18s, box-shadow 0.18s, transform 0.18s",
-            cursor: "pointer",
-            minWidth: 120,
-            textAlign: "center",
-            display: "inline-block"
-          }}
-          onMouseEnter={e => e.currentTarget.style.background = '#d63a2a'}
-          onMouseLeave={e => e.currentTarget.style.background = '#ee4c40'}
-          >Xem chi tiết</a>
+          <Link href={`/rooms/${room.name.toLowerCase().replace(/\s+/g, '-')}`}
+            style={{
+              background: "#ee4c40",
+              color: "#fff",
+              border: "none",
+              borderRadius: 8,
+              padding: "10px 28px",
+              fontWeight: 700,
+              fontSize: 16,
+              textDecoration: "none",
+              boxShadow: "0 2px 8px rgba(238,76,64,0.10)",
+              transition: "background 0.18s, box-shadow 0.18s, transform 0.18s",
+              cursor: "pointer",
+              minWidth: 120,
+              textAlign: "center",
+              display: "inline-block"
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = '#d63a2a'}
+            onMouseLeave={e => e.currentTarget.style.background = '#ee4c40'}
+          >Xem chi tiết</Link>
         </div>
       </div>
     </div>
