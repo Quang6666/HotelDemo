@@ -199,7 +199,13 @@ const ROOMS = [
   }
 ];
 
-export default function RoomDetail({ params }: { params: { id: string } }) {
+// Định nghĩa props đúng chuẩn Next.js App Router, không import Params không cần thiết
+interface RoomDetailPageProps {
+  params: { id: string };
+  searchParams?: Record<string, string | string[]>;
+}
+
+export default function RoomDetail({ params }: RoomDetailPageProps) {
   const room = ROOMS.find(r => r.id === params.id);
   if (!room) return notFound();
 
