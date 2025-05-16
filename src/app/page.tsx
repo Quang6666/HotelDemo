@@ -1,5 +1,6 @@
 'use client';
 import React, { useRef, useEffect } from "react";
+import Link from "next/link";
 
 export default function Home() {
   // Hiệu ứng nền gradient động theo chuột
@@ -139,7 +140,9 @@ export default function Home() {
           <div className="copyright">© 2025 FirstHotel. All rights reserved.</div>
         </div>
       </footer>
-      <a href="/rooms" className="floating-btn"><i className="fas fa-phone-alt"></i> Đặt phòng</a>
+      <Link href="/rooms" className="floating-btn">
+        <i className="fas fa-phone-alt"></i> Đặt phòng
+      </Link>
     </>
   );
 }
