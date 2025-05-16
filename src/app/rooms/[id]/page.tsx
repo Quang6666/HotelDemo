@@ -227,7 +227,7 @@ const ROOMS = [
 	},
 ];
 
-export default function Page({ params }: any) {
+export default function Page({ params }: { params: { id: string } }) {
 	const room = ROOMS.find((r) => r.id === params.id);
 	if (!room) return notFound();
 
