@@ -227,8 +227,20 @@ const ROOMS = [
 	},
 ];
 
-export default function Page({ params }: { params: { id: string } }) {
-	const room = ROOMS.find((r) => r.id === params.id);
+export default function Page({ params }: { params: Promise<Record<string, string>> | Record<string, string> }) {
+	// Nếu params là Promise (trường hợp Next.js build type strict), cần await
+	// Nhưng Next.js sẽ truyền object khi chạy thực tế, nên xử lý cả hai trường hợp
+	const [roomId, setRoomId] = React.useState<string | null>(null);
+	React.useEffect(() => {
+		if (params instanceof Promise) {
+			params.then((p) => setRoomId(p.id));
+		} else {
+			setRoomId(params.id);
+		}
+	}, [params]);
+
+	const room = ROOMS.find((r) => r.id === roomId);
+	if (!roomId) return null; // hoặc loading
 	if (!room) return notFound();
 
 	return (
