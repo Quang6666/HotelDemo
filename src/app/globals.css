@@ -68,12 +68,25 @@ a {
 .nav a {
   color: #fff;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 1.1rem;
-  transition: color 0.2s;
+  padding: 0 18px;
+  font-weight: 700;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  border-radius: 32px;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  font-family: inherit;
+  display: inline-block;
 }
-.nav a:hover {
+.nav a:hover, .nav a:focus {
+  background: #fff;
   color: #ee4c40;
+  box-shadow: 0 6px 24px rgba(238,76,64,0.25);
+}
+.nav a::after {
+  content: none;
 }
 .badge {
   background: #ee4c40;
@@ -384,6 +397,51 @@ a {
 .floating-btn:hover {
   background: #fff;
   color: #ee4c40;
+}
+.interactive-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: background 0.2s;
+  will-change: background;
+  /* Hiệu ứng chiều sâu */
+  mix-blend-mode: lighten;
+  opacity: 0.95;
+  animation: bgFadeIn 1.2s cubic-bezier(.4,0,.2,1);
+}
+@keyframes bgFadeIn {
+  from { opacity: 0; }
+  to { opacity: 0.95; }
+}
+.hero-grid-bg {
+  position: relative;
+  background: #181c24;
+  overflow: hidden;
+}
+.hero-grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(238,76,64,0.13) 0px, rgba(238,76,64,0.22) 2px, transparent 3px, transparent 44px),
+    repeating-linear-gradient(90deg, rgba(238,76,64,0.13) 0px, rgba(238,76,64,0.22) 2px, transparent 3px, transparent 44px);
+  /* Neon effect: subtle glow */
+  box-shadow: 0 0 32px 4px #ee4c4033, 0 0 0 1px #232946;
+  opacity: 0.85;
+  animation: gridMove 16s linear infinite;
+  background-size: 44px 44px;
+  background-position: 0 0;
+}
+@keyframes gridMove {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 88px 0, 88px 0; }
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
 }
 @media (max-width: 900px) {
   .room-cards {

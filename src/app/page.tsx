@@ -1,20 +1,66 @@
 'use client';
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
 export default function Home() {
+  // Hiệu ứng nền gradient động theo chuột
+  const bgRef = useRef<HTMLDivElement>(null);
+  // Lưu vị trí mục tiêu và vị trí hiện tại để easing
+  const pos = useRef({ x: 50, y: 50 }); // phần trăm
+  const target = useRef({ x: 50, y: 50 });
+  useEffect(() => {
+    let running = true;
+    const handleMove = (e: MouseEvent) => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      target.current = {
+        x: (e.clientX / w) * 100,
+        y: (e.clientY / h) * 100,
+      };
+    };
+    const animate = () => {
+      // easing
+      pos.current.x += (target.current.x - pos.current.x) * 0.08;
+      pos.current.y += (target.current.y - pos.current.y) * 0.08;
+      if (bgRef.current) {
+        bgRef.current.style.background = `radial-gradient(circle at ${pos.current.x}% ${pos.current.y}%, #6dd5ed 0%, #2193b0 40%, #6e45e2 80%, #232946 100%)`;
+        bgRef.current.style.filter = 'brightness(0.7) blur(0.5px)';
+      }
+      if (running) requestAnimationFrame(animate);
+    };
+    window.addEventListener('mousemove', handleMove);
+    animate();
+    return () => {
+      running = false;
+      window.removeEventListener('mousemove', handleMove);
+    };
+  }, []);
   return (
     <>
+      {/* Nền gradient động theo chuột, chỉ đổi màu background gốc */}
+      <div
+        ref={bgRef}
+        className="interactive-bg"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: -1, // Đảm bảo nằm dưới mọi section
+          pointerEvents: 'none',
+          transition: 'background 0.2s',
+          willChange: 'background',
+          filter: 'brightness(0.1) blur(0.5px)',
+        }}
+        aria-hidden="true"
+      />
       <header className="header">
         <div className="logo">FirstHotel</div>
         <nav className="nav">
-          <a href="/rooms">Phòng</a>
           <a href="#services">Dịch vụ</a>
           <a href="#about">Giới thiệu</a>
           <a href="/contact-booking">Liên hệ</a>
           <span className="badge">Top Hotel 2025</span>
         </nav>
       </header>
-      <section className="hero" id="home">
+      <section className="hero hero-grid-bg" id="home">
         <div className="hero-content">
           <h1>Khách sạn FirstHotel</h1>
           <p>Đặt phòng khách sạn cao cấp, tiện nghi, giá tốt!</p>
@@ -78,30 +124,6 @@ export default function Home() {
           <div className="service-item"><i className="fas fa-wifi"></i> Wifi miễn phí</div>
           <div className="service-item"><i className="fas fa-swimmer"></i> Hồ bơi ngoài trời</div>
         </div>
-      </section>
-      <section className="divider"></section>
-      <section className="about" id="about">
-        <h2>Giới thiệu về FirstHotel</h2>
-        <p>FirstHotel là khách sạn cao cấp với vị trí trung tâm, dịch vụ chuyên nghiệp và tiện nghi hiện đại, mang đến trải nghiệm tuyệt vời cho khách hàng.</p>
-      </section>
-      <section className="divider"></section>
-      <section className="booking" id="booking">
-        <h2>Đặt phòng ngay</h2>
-        <form className="booking-form">
-          <input type="text" placeholder="Họ và tên" required />
-          <input type="email" placeholder="Email" required />
-          <input type="tel" placeholder="Số điện thoại" required />
-          <input type="date" placeholder="Ngày nhận phòng" required />
-          <input type="date" placeholder="Ngày trả phòng" required />
-          <select required>
-            <option value="">Chọn loại phòng</option>
-            <option value="superior">Superior</option>
-            <option value="deluxe">Deluxe</option>
-            <option value="suite">Suite</option>
-          </select>
-          <input type="number" placeholder="Số người" min="1" max="10" required />
-          <button className="btn-accent" type="submit">Gửi yêu cầu</button>
-        </form>
       </section>
       <section className="divider"></section>
       <footer className="footer" id="contact">
