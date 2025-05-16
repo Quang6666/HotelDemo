@@ -24,12 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;400&display=swap" rel="stylesheet" />
-        <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossOrigin="anonymous"></script>
-      </head>
+      <head>{/* Đã chuyển font và script sang _document.tsx */}</head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
       </body>
