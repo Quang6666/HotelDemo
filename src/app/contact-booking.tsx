@@ -80,13 +80,146 @@ export default function ContactBooking() {
       justifyContent: "center",
       padding: "48px 0"
     }}>
+      {/* Hiệu ứng nền động: bầu trời đêm, mặt trăng, mây đen, mưa rơi, wave */}
+      <div style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        zIndex: 0,
+        pointerEvents: "none",
+        overflow: "hidden",
+      }}>
+        {/* Bầu trời đêm */}
+        <div style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "55%",
+          background: "linear-gradient(180deg, #232946 70%, rgba(35,41,70,0.0) 100%)"
+        }} />
+        {/* Mặt trăng */}
+        <svg width="100%" height="100%" style={{position: "absolute", top: 0, left: 0}}>
+          <circle cx="84%" cy="22%" r="32" fill="#fffbe8" filter="url(#moonGlow)" />
+          <defs>
+            <filter id="moonGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="10" result="glow" />
+              <feMerge>
+                <feMergeNode in="glow" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+        </svg>
+        {/* Mây đen động (Cirrus): tăng gấp đôi chiều ngang, dải mây dài hơn */}
+        <svg width="100%" height="70%" style={{position: "absolute", top: 0, left: 0}}>
+          {Array.from({length: 3}).map((_, i) => {
+            const baseY = 33 + i*7;
+            const baseX = 18 + i*28;
+            const dur = 18 + i*4;
+            return (
+              <g key={i} style={{opacity: 0.55 + 0.15*i}}>
+                <g>
+                  <ellipse cx={`${baseX}%`} cy={`${baseY}%`} rx="1000" ry="22" fill="#232329" opacity="0.82">
+                    <animate attributeName="cx" values={`${baseX}%;${baseX+12}%;${baseX}%`} dur={`${dur}s`} repeatCount="indefinite" />
+                  </ellipse>
+                  <ellipse cx={`${baseX+16}%`} cy={`${baseY+3}%`} rx="76" ry="15" fill="#232329" opacity="0.7">
+                    <animate attributeName="cx" values={`${baseX+16}%;${baseX+24}%;${baseX+16}%`} dur={`${dur+3}s`} repeatCount="indefinite" />
+                  </ellipse>
+                  <ellipse cx={`${baseX-20}%`} cy={`${baseY+4}%`} rx="56" ry="10" fill="#232329" opacity="0.6">
+                    <animate attributeName="cx" values={`${baseX-20}%;${baseX-12}%;${baseX-20}%`} dur={`${dur+2}s`} repeatCount="indefinite" />
+                  </ellipse>
+                </g>
+              </g>
+            );
+          })}
+        </svg>
+        {/* Wave động nền dưới */}
+        <svg
+          style={{position: "absolute", bottom: 0, left: 0, width: "100%", height: "45%", zIndex: 0, pointerEvents: "none"}}
+          viewBox="0 0 1440 600"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="waveGradientCB" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#00c6fb">
+                <animate attributeName="stop-color" values="#00c6fb;#005bea;#00c6fb" dur="8s" repeatCount="indefinite" />
+              </stop>
+              <stop offset="100%" stopColor="#005bea">
+                <animate attributeName="stop-color" values="#005bea;#00c6fb;#005bea" dur="8s" repeatCount="indefinite" />
+              </stop>
+            </linearGradient>
+          </defs>
+          <path
+            id="wave1cb"
+            d="M0,400 Q360,350 720,400 T1440,400 V600 H0 Z"
+            fill="url(#waveGradientCB)"
+            opacity="0.18"
+          >
+            <animate 
+              attributeName="d"
+              dur="7s"
+              repeatCount="indefinite"
+              values="
+                M0,400 Q360,350 720,400 T1440,400 V600 H0 Z;
+                M0,410 Q360,370 720,390 T1440,410 V600 H0 Z;
+                M0,400 Q360,350 720,400 T1440,400 V600 H0 Z
+              "
+              keyTimes="0;0.5;1"
+              keySplines="0.42 0 0.58 1;0.42 0 0.58 1"
+              calcMode="spline"
+            />
+          </path>
+          <path
+            id="wave2cb"
+            d="M0,480 Q360,430 720,480 T1440,480 V600 H0 Z"
+            fill="url(#waveGradientCB)"
+            opacity="0.12"
+          >
+            <animate 
+              attributeName="d"
+              dur="9s"
+              repeatCount="indefinite"
+              values="
+                M0,480 Q360,430 720,480 T1440,480 V600 H0 Z;
+                M0,470 Q360,450 720,470 T1440,470 V600 H0 Z;
+                M0,480 Q360,430 720,480 T1440,480 V600 H0 Z
+              "
+              keyTimes="0;0.5;1"
+              keySplines="0.42 0 0.58 1;0.42 0 0.58 1"
+              calcMode="spline"
+            />
+          </path>
+        </svg>
+        {/* Sao lấp lánh phía trên mây */}
+        <svg width="100%" height="32%" style={{position: "absolute", top: 0, left: 0, zIndex: 1, pointerEvents: "none"}}>
+          {Array.from({length: 38}).map((_, i) => {
+            // Random vị trí và kích thước, lấp lánh mạnh
+            const cx = Math.random() * 100;
+            const cy = Math.random() * 30 + 2; // chỉ phía trên mây
+            const r = Math.random() * 1.2 + 0.8;
+            const dur = (1.2 + Math.random() * 1.8).toFixed(2);
+            const delay = (Math.random() * 2.5).toFixed(2);
+            return (
+              <circle key={i} cx={`${cx}%`} cy={`${cy}%`} r={r} fill="#fff" opacity="0.85">
+                <animate attributeName="opacity" values="0.2;1;0.2" dur={`${dur}s`} begin={`${delay}s`} repeatCount="indefinite" />
+                <animate attributeName="r" values={`${r};${r*2.2};${r}`} dur={`${dur}s`} begin={`${delay}s`} repeatCount="indefinite" />
+              </circle>
+            );
+          })}
+        </svg>
+      </div>
       <div style={{
         background: "#fff",
         borderRadius: 18,
         boxShadow: "0 8px 32px rgba(35,41,70,0.13)",
         padding: 56,
         maxWidth: 600,
-        width: "100%"
+        width: "100%",
+        position: "relative",
+        zIndex: 1
       }}>
         <h1 style={{textAlign: "center", color: "#1a237e", marginBottom: 12, fontSize: 32, fontWeight: 900, fontFamily: 'Segoe UI', letterSpacing: 0.5}}>Liên hệ & Đặt phòng</h1>
         <div style={{textAlign: "center", color: "#444", marginBottom: 28, fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500}}>Điền thông tin theo từng bước, chúng tôi sẽ liên hệ xác nhận nhanh nhất!</div>
